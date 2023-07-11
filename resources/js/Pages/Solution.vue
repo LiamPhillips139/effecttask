@@ -11,7 +11,7 @@
                 </p>
             </div>
             <div class="flex flex-row w-full justify-end">
-                <button :disabled="form.document.length == 0 || isLoading" type="submit" class="btn btn-sm btn-primary">
+                <button :disabled="!form.document || isLoading" type="submit" class="btn btn-sm btn-primary">
                     <span v-if="isLoading">
                         <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                             <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
@@ -36,7 +36,7 @@ const props = defineProps({
 });
 
 const form = useForm({
-    document: ''
+    document: null
 })
 
 const isLoading = ref(false);
@@ -58,7 +58,7 @@ const submit = () => {
         },
         onFinish: () => {
             isLoading.value = false;
-            form.document = '';
+            form.document = null;
         }
     })
 }
