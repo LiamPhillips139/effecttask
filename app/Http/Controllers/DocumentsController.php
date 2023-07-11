@@ -4,9 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Models\Document;
 use Aws\Textract\TextractClient;
+use Aws\Textract\Exception\TextractException;
 use Carbon\Carbon;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class DocumentsController extends Controller
 {
@@ -68,10 +70,22 @@ class DocumentsController extends Controller
 
             $document->save();
 
-        } catch (\Throwable $th) {
+        } catch(TextractException $e) {
+
+            Log::error('Textract Exception: ' . $e->getMessage());
+
+            return redirect()->back()->withErrors([
+                'message' => 'There was an issue with the amazon web services client. Please try again later.'
+            ]);
+
+        } catch (\Throwable $e) {
+
+            Log::error('General Exception: ' . $e->getMessage());
+
             return redirect()->back()->withErrors([
                 'message' => 'Unable to process your request at this time. Please try again later.'
             ]);
+
         }
 
         return redirect()->back()->with([
