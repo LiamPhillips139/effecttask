@@ -1,7 +1,7 @@
 <?php
 
-use Inertia\Inertia;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\{DocumentsController, PagesController};
 
 /*
 |--------------------------------------------------------------------------
@@ -14,6 +14,5 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return Inertia::render('Solution');
-})->name('test.testing');
+Route::get('/', PagesController::class);
+Route::post('/documents/upload', DocumentsController::class)->name('documents.upload');
