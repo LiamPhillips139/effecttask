@@ -65,6 +65,8 @@ This project used inertiajs and laravel to serve a vue component to the frontend
 
 12. Choose a pdf by clicking the input field and upload
 
+13. View database documents table from terminal or GUI (tableplus, Sequel pro, etc...)
+
 ## Testing
 
 1. To test the application run command below
