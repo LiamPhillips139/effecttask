@@ -36,4 +36,26 @@ class DocumentsControllerTest extends TestCase
         $response->assertRedirect();
         $response->assertSessionHasErrors(['document']);
     }
+
+    public function test_create_document_successful(): void
+    {
+        Storage::fake(); // Use a fake disk for testing
+
+        $pdfPath = storage_path('app/public/cvliamphillips.pdf');
+
+        $file = new UploadedFile($pdfPath, 'cvliamphillips.pdf', 'application/pdf', null, true);
+
+        $response = $this->post(route('documents.upload'), [
+            'document' => $file
+        ]);
+
+        $response->assertStatus(302);
+        $response->assertRedirect();
+
+        // Assert that the document was saved correctly
+        $this->assertDatabaseHas('documents', [
+            'title' => 'cvliamphillips.pdf',
+        ]);
+
+    }
 }
