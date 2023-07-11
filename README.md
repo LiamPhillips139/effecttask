@@ -17,7 +17,7 @@ This project used inertiajs and laravel to serve a vue component to the frontend
 
 2. Go to the project root directory
     ```sh
-    cd solution
+    cd effecttask
     ```
 
 3. Copy .env.example file to .env file
